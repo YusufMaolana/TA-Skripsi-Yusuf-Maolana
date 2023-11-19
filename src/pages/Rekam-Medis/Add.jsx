@@ -87,7 +87,7 @@ function Index() {
 
   const handleAddCatatanMedis = (e) => {
     e.preventDefault();
-     insertRekamMedis({
+    insertRekamMedis({
       variables: {
         objects: data,
       },

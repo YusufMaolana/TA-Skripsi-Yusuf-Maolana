@@ -84,7 +84,7 @@ function Index() {
       maxWidth: "25%",
     },
     {
-      name: "No. Rekam Medis",
+      name: " No. Identitas ",
       selector: (row) => <span className="px-3">{row.no_rekam_medis}</span>,
       maxWidth: "18%",
     },

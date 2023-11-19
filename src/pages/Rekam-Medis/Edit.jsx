@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { InputForm, Button } from "../../components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetRekamMedisById, useUpdateRekamMedis } from "../../hooks";
 import swal from "sweetalert";
 
@@ -13,20 +13,22 @@ function Index() {
   const { data: dataDetail, error } = useGetRekamMedisById(id_rekam_medis);
   if (error) console.error(error);
   // data diisi berdasarkan getuserby id
-  const rekam_medis = dataDetail?.rekam_medis[0];
-  console.log(rekam_medis);
 
   const [data, setData] = useState({
-    id: id_rekam_medis,
-    id_user: id_user,
-    nama: nama,
-    tanggal: tanggal,
-    alergi: rekam_medis?.alergi,
-    keluhan: rekam_medis?.keluhan,
-    diagnosa: rekam_medis?.diagnosa,
-    therapi: rekam_medis?.therapi,
-    pembayaran: rekam_medis?.pembayaran,
+    id: "",
+    id_user: "",
+    nama: "",
+    tanggal: "",
+    alergi: "",
+    keluhan: "",
+    diagnosa: "",
+    therapi: "",
+    pembayaran: "",
   });
+
+  useEffect(() => {
+    setData(dataDetail?.rekam_medis[0]);
+  }, [dataDetail]);
 
   const handleInputChange = (e) => {
     const name = e.target.name;
@@ -45,7 +47,7 @@ function Index() {
       type: "text",
       onChange: handleInputChange,
       disabled: true,
-      value: data.nama,
+      value: data?.nama,
     },
     {
       label: "Harga Pengobatan",
@@ -53,7 +55,7 @@ function Index() {
       type: "number",
       placeholder: "Masukan Harga Pengobatan",
       onChange: handleInputChange,
-      value: data.pembayaran,
+      value: data?.pembayaran,
     },
     {
       label: "Alergi",
@@ -61,7 +63,7 @@ function Index() {
       type: "text",
       placeholder: "Masukan Alergi",
       onChange: handleInputChange,
-      value: data.alergi,
+      value: data?.alergi,
     },
   ];
 
@@ -71,31 +73,44 @@ function Index() {
       name: "keluhan",
       placeholder: "Masukan Keluhan",
       onChange: handleInputChange,
-      value: data.keluhan,
+      value: data?.keluhan,
     },
     {
       label: "Diagnosa",
       name: "diagnosa",
       placeholder: "Masukan Diagnosa",
       onChange: handleInputChange,
-      value: data.diagnosa,
+      value: data?.diagnosa,
     },
     {
       label: "Therapi",
       name: "therapi",
       placeholder: "Masukan Therapi",
       onChange: handleInputChange,
-      value: data.therapi,
+      value: data?.therapi,
     },
   ];
 
   const { updateRekamMedis } = useUpdateRekamMedis();
   const handleEditCatatanMedis = (e) => {
     e.preventDefault();
+
+    const objects = {
+      id: data.id,
+      id_user: data.id_user,
+      nama: data.nama,
+      tanggal: tanggal,
+      alergi: data.alergi,
+      keluhan: data.keluhan,
+      diagnosa: data.diagnosa,
+      therapi: data.therapi,
+      pembayaran: data.pembayaran,
+    };
+
     updateRekamMedis({
       variables: {
         _eq: id_rekam_medis,
-        _set: data,
+        _set: objects,
       },
     })
       .then(({ data }) => {

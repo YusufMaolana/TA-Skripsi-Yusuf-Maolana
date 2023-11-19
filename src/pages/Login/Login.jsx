@@ -135,7 +135,7 @@ function Login() {
                 htmlFor="norekammedis"
                 className="form-label font-primary fw-bold text-dark-blue fs-6"
               >
-                No Rekam Medis
+                Nomor ID
               </label>
               <input
                 type="text"
@@ -143,7 +143,7 @@ function Login() {
                 className="form-control"
                 required
                 name="no_rekam_medis"
-                placeholder="Masukan No Rekam Medis"
+                placeholder="Masukan Nomor ID"
                 value={data.no_rekam_medis}
                 onChange={handleInputChange}
               />

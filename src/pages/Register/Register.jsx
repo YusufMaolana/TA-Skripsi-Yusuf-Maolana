@@ -25,7 +25,7 @@ function Register() {
     nama: "",
     password: "",
     confirm_password: "",
-    no_rekam_medis: "No. Rekam Medis Masih Kosong",
+    no_rekam_medis: "Nomor ID Masih Kosong",
   });
 
   const generateNoRekamMedis = () => {
@@ -153,9 +153,9 @@ function Register() {
                 htmlFor="no_rekam_medis"
                 className="form-label font-primary fw-bold text-dark-blue fs-6"
               >
-                No. Rekam Medis{" "}
+                Nomor ID{" "}
                 <span className="text-primary">
-                  (Harap ingat dan isi No rekam Medis Anda)
+                  (Harap Ingat dan Isi Nomor ID Anda)
                 </span>
               </label>
               <div className="input-group">
