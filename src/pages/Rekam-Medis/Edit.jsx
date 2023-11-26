@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { InputForm, Button } from "../../components";
+import { InputForm, Button, Textarea } from "../../components";
 import { useEffect, useState } from "react";
 import { useGetRekamMedisById, useUpdateRekamMedis } from "../../hooks";
 import swal from "sweetalert";
@@ -141,7 +141,7 @@ function Index() {
             return <InputForm props={props} key={i} />;
           })}
           {TEXTAREA.map((props, i) => {
-            return <InputForm props={props} key={i} />;
+            return <Textarea props={props} key={i} />;
           })}
           <Button props={propsButton} />
         </form>

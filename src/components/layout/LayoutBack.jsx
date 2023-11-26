@@ -23,16 +23,11 @@ function LayoutBack({ children, user }) {
   const path = location.pathname.split("/")[1];
   const active = path.split("-").join(" ");
 
-  // const [active, setActive] = useState("IMRAN MEDICAL CENTER");
-
-  // const handleActive = (submenu) => {
-  //   const submenuActive = active == submenu ? "active-link" : " ";
-  //   return submenuActive;
-  // };
-
-  // const clickActive = (menu) => {
-  //   setActive(menu);
-  // };
+  const breadcrumbMenu = location.pathname.split("/").filter((x, index) => {
+    if (index < 3) {
+      return x;
+    }
+  });
 
   const handleLogout = () => {
     localStorage.clear();
@@ -152,6 +147,22 @@ function LayoutBack({ children, user }) {
                 {active ?? "IMRAN MEDICAL CENTER"}
               </h2>
               <hr />
+              <nav aria-label="breadcrumb">
+                <ol className="breadcrumb ps-3 font-primary">
+                  <li className="breadcrumb-item">
+                    <Link to="/">Home</Link>
+                  </li>
+                  {breadcrumbMenu.map((menu) =>
+                    menu === path && menu !== "rekam-medis" ? (
+                      <li className="breadcrumb-item">
+                        <Link to={`/${path}`}>{menu}</Link>
+                      </li>
+                    ) : (
+                      <li className="breadcrumb-item">{menu}</li>
+                    )
+                  )}
+                </ol>
+              </nav>
               {children}
             </div>
           </main>
