@@ -46,20 +46,29 @@ function Index() {
       name: "Nama",
       selector: (row) => row.nama,
       sortable: true,
-      maxWidth: "30%",
+      maxWidth: "20%",
+      allowOverflow: true,
+      wrap: true,
     },
     {
       name: "Alamat",
       selector: (row) => row.alamat,
-      maxWidth: "30%",
+      maxWidth: "40%",
+      allowOverflow: true,
+      wrap: true,
     },
     {
       name: "No. Rekam Medis",
       selector: (row) => <span className="px-3">{row.no_rekam_medis}</span>,
       maxWidth: "18%",
+      allowOverflow: true,
+      wrap: true,
     },
     {
       name: "Tambah Rekam Medis",
+      maxWidth: "20%",
+      allowOverflow: true,
+      wrap: true,
       center: true,
       cell: (row) => (
         <Link to={`/rekam-medis/${row.id}`}>

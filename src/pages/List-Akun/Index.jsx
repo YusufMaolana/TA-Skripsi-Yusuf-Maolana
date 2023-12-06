@@ -76,28 +76,35 @@ function Index() {
       name: "Nama",
       selector: (row) => row.nama,
       sortable: true,
-      maxWidth: "30%",
+      maxWidth: "18%",
+      allowOverflow: true,
+      wrap: true,
     },
     {
       name: "Alamat",
       selector: (row) => row.alamat,
-      maxWidth: "25%",
+      maxWidth: "37%",
+      allowOverflow: true,
+      wrap: true,
     },
     {
       name: "No. Rekam Medis",
       selector: (row) => <span className="px-3">{row.no_rekam_medis}</span>,
-      maxWidth: "18%",
+      maxWidth: "15%",
+      allowOverflow: true,
+      wrap: true,
     },
     {
       name: "Status Akun",
       selector: (row) => (
         <span className="text-uppercase">{row.user_role}</span>
       ),
-      maxWidth: "18%",
       center: true,
+      maxWidth: "15%",
     },
     {
       name: "Edit / Hapus",
+      maxWidth: "15%",
       center: true,
       cell: (row) => (
         <div className="d-flex gap-3">

@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useInsertUser } from "../../hooks";
 import { hashStr } from "../../utils";
 import Spinner from "react-bootstrap/Spinner";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 function Register() {
   const navigate = useNavigate();
@@ -111,6 +112,16 @@ function Register() {
         });
     } else {
       alert("Harap isi data anda dengan Benar");
+    }
+  };
+
+  const [inputType, setInputType] = useState("password");
+
+  const inputTextType = () => {
+    if (inputType == "password") {
+      setInputType("text");
+    } else {
+      setInputType("password");
     }
   };
 
@@ -221,15 +232,27 @@ function Register() {
               >
                 Password
               </label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                name="password"
-                placeholder="Masukan Password"
-                onChange={handleInputChange}
-                required
-              />
+              <div className="input-group">
+                <input
+                  type={inputType}
+                  className="form-control border-end-0"
+                  id="password"
+                  name="password"
+                  placeholder="Masukan Password"
+                  onChange={handleInputChange}
+                  required
+                />
+                <span
+                  className="input-group-text bg-transparent fs-4 pe-3"
+                  onClick={() => inputTextType()}
+                >
+                  {inputType == "password" ? (
+                    <AiOutlineEye />
+                  ) : (
+                    <AiOutlineEyeInvisible />
+                  )}
+                </span>
+              </div>
               <div className="form-text text-danger">
                 {errMsg.password ? errMsg.password : " "}
               </div>
@@ -241,15 +264,27 @@ function Register() {
               >
                 Konfirmasi Password
               </label>
-              <input
-                type="password"
-                id="confirm_password"
-                name="confirm_password"
-                className="form-control"
-                placeholder="Konfirmasi Password"
-                onChange={handleInputChange}
-                required
-              />
+              <div className="input-group">
+                <input
+                  type={inputType}
+                  id="confirm_password"
+                  name="confirm_password"
+                  className="form-control border-end-0"
+                  placeholder="Konfirmasi Password"
+                  onChange={handleInputChange}
+                  required
+                />
+                <span
+                  className="input-group-text bg-transparent fs-4 pe-3"
+                  onClick={() => inputTextType()}
+                >
+                  {inputType == "password" ? (
+                    <AiOutlineEye />
+                  ) : (
+                    <AiOutlineEyeInvisible />
+                  )}
+                </span>
+              </div>
 
               <div className="form-text text-danger">
                 {errMsg.confirm_password ? errMsg.confirm_password : " "}

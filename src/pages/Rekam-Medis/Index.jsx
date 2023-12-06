@@ -79,18 +79,26 @@ function Index() {
       {
         name: "Alergi",
         selector: (row) => row.alergi,
+        allowOverflow: true,
+        wrap: true,
       },
       {
         name: "Keluhan",
         selector: (row) => row.keluhan,
+        allowOverflow: true,
+        wrap: true,
       },
       {
         name: "Diagnosa",
         selector: (row) => row.diagnosa,
+        allowOverflow: true,
+        wrap: true,
       },
       {
         name: "Therapi",
         selector: (row) => row.therapi,
+        allowOverflow: true,
+        wrap: true,
       },
       {
         name: "Pembayaran",
@@ -100,7 +108,7 @@ function Index() {
         name: "Hapus",
         center: true,
         cell: (row) => (
-          <div className="d-flex gap-3">
+          <div className="d-flex">
             <BsFillTrashFill
               className="text-danger fs-4 pointer"
               onClick={() => handleHapus(row.id)}
@@ -119,18 +127,26 @@ function Index() {
       {
         name: "Alergi",
         selector: (row) => row.alergi,
+        allowOverflow: true,
+        wrap: true,
       },
       {
         name: "Keluhan",
         selector: (row) => row.keluhan,
+        allowOverflow: true,
+        wrap: true,
       },
       {
         name: "Diagnosa",
         selector: (row) => row.diagnosa,
+        allowOverflow: true,
+        wrap: true,
       },
       {
         name: "Therapi",
         selector: (row) => row.therapi,
+        allowOverflow: true,
+        wrap: true,
       },
       {
         name: "Pembayaran",
@@ -161,22 +177,31 @@ function Index() {
       {
         name: "Alergi",
         selector: (row) => row.alergi,
+        allowOverflow: true,
+        wrap: true,
       },
       {
         name: "Keluhan",
         selector: (row) => row.keluhan,
+        allowOverflow: true,
+        wrap: true,
       },
       {
         name: "Diagnosa",
         selector: (row) => row.diagnosa,
+        allowOverflow: true,
+        wrap: true,
       },
       {
         name: "Therapi",
         selector: (row) => row.therapi,
+        allowOverflow: true,
+        wrap: true,
       },
       {
         name: "Pembayaran",
         selector: (row) => toRupiah(row.pembayaran),
+        center: true,
       },
     ];
   }

@@ -1,42 +1,16 @@
-// const INPUTFORM = [//   {
-//     label: "Nama",
-//     name: "nama",
-//     type: "text",
-//     placeholder: "Masukan Nama",
-//   },
-//   {
-//     label: "No. Rekam Medis",
-//     name: "no_rekam_medis",
-//     type: "text",
-//     placeholder: "Generate No Rekam Medis",
-//   },
-//   {
-//     label: "Alamat",
-//     name: "alamat",
-//     type: "text",
-//     placeholder: "Masukan Alamat",
-//   },
-//   {
-//     label: "Tanggal Lahir",
-//     name: "tgl_lahir",
-//     type: "date",
-//     placeholder: "Masukan Tanggal Lahir",
-//   },
-//   {
-//     label: "Password",
-//     name: "password",
-//     type: "password",
-//     placeholder: "Masukan Password",
-//   },
-//   {
-//     label: "Konfirmasi Password",
-//     name: "confirm_password",
-//     type: "password",
-//     placeholder: "Masukan Konfirmasi Password",
-//   },
-// ];
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { useState } from "react";
 
 function InputForm({ props }) {
+  const [inputType, setInputType] = useState("password");
+
+  const inputTextType = () => {
+    if (inputType == "password") {
+      setInputType("text");
+    } else {
+      setInputType("password");
+    }
+  };
   return (
     <div className="mb-3">
       <label
@@ -45,17 +19,43 @@ function InputForm({ props }) {
       >
         {props.label}
       </label>
-      <input
-        type={props.type}
-        className="form-control "
-        id={props.name}
-        name={props.name}
-        placeholder={props.placeholder}
-        onChange={props.onChange}
-        disabled={props.disabled}
-        value={props.value}
-        required
-      />
+      {props.name == "password" || props.name == "confirm_password" ? (
+        <div className="input-group">
+          <input
+            type={inputType}
+            className="form-control border-end-0"
+            id={props.name}
+            name={props.name}
+            placeholder={props.placeholder}
+            onChange={props.onChange}
+            disabled={props.disabled}
+            value={props.value}
+            required
+          />
+          <span
+            className="input-group-text bg-transparent fs-4 pe-3"
+            onClick={() => inputTextType()}
+          >
+            {inputType == "password" ? (
+              <AiOutlineEye />
+            ) : (
+              <AiOutlineEyeInvisible />
+            )}
+          </span>
+        </div>
+      ) : (
+        <input
+          type={props.type}
+          className="form-control"
+          id={props.name}
+          name={props.name}
+          placeholder={props.placeholder}
+          onChange={props.onChange}
+          disabled={props.disabled}
+          value={props.value}
+          required
+        />
+      )}
       <div className="form-text text-danger">
         {props.errMsg ? props.errMsg : " "}
       </div>

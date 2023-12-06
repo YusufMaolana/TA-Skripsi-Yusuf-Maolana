@@ -158,6 +158,8 @@ function Index() {
       selector: (row) => row.nama,
       sortable: true,
       maxWidth: "30%",
+      allowOverflow: true,
+      wrap: true,
     },
     {
       name: "Tanggal",
@@ -192,6 +194,8 @@ function Index() {
       selector: (row) => row.nama,
       sortable: true,
       maxWidth: "30%",
+      allowOverflow: true,
+      wrap: true,
     },
     {
       name: "Tanggal",
@@ -239,6 +243,8 @@ function Index() {
       selector: (row) => row.nama,
       sortable: true,
       maxWidth: "30%",
+      allowOverflow: true,
+      wrap: true,
     },
     {
       name: "Tanggal",

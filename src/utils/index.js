@@ -32,6 +32,10 @@ export const customStyles = {
   rows: {
     style: {
       minHeight: "40px",
+      paddingTop: "5px",
+      paddingBottom: "5px",
+      paddingRight: "3px",
+      paddingLeft: "3px",
     },
   },
   headCells: {

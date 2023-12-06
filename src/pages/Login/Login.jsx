@@ -1,11 +1,12 @@
 import { LayoutAccess } from "../../components";
 import { coverLogin } from "../../assets";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import { useGetUserByNoRekam } from "../../hooks";
 import { hashStr, compareStr } from "../../utils";
 import Spinner from "react-bootstrap/Spinner";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 function Login() {
   const navigate = useNavigate();
@@ -95,6 +96,16 @@ function Login() {
     }
   };
 
+  const [inputType, setInputType] = useState("password");
+
+  const inputTextType = () => {
+    if (inputType == "password") {
+      setInputType("text");
+    } else {
+      setInputType("password");
+    }
+  };
+
   return (
     <LayoutAccess cover={coverLogin}>
       <div className="col-lg-6 side-right">
@@ -156,16 +167,29 @@ function Login() {
               >
                 Password
               </label>
-              <input
-                type="password"
-                id="password"
-                className="form-control"
-                placeholder="Masukan Password"
-                required
-                name="password"
-                value={data.password}
-                onChange={handleInputChange}
-              />
+              <div className="input-group">
+                <input
+                  type={inputType}
+                  id="password"
+                  className="form-control border-end-0"
+                  placeholder="Masukan Password"
+                  required
+                  name="password"
+                  value={data.password}
+                  onChange={handleInputChange}
+                />
+
+                <span
+                  className="input-group-text bg-transparent fs-4 pe-3"
+                  onClick={() => inputTextType()}
+                >
+                  {inputType == "password" ? (
+                    <AiOutlineEye />
+                  ) : (
+                    <AiOutlineEyeInvisible />
+                  )}
+                </span>
+              </div>
               <div id="password" className="form-text text-danger">
                 {errMsg.password ? errMsg.password : " "}
               </div>
