@@ -34,7 +34,7 @@ function Index() {
         <InputGroup>
           <Form.Control
             type="text"
-            placeholder="Cari Nama"
+            placeholder="Cari Nama / No Rekam Medis"
             onChange={(e) => setFilterText(e.target.value)}
           />
           <InputGroup.Text className="bg-warning">
