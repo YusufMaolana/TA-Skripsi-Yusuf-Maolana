@@ -16,13 +16,17 @@ function Index() {
   if (errorUser) console.error(errorUser);
   // console.log(dataUser);
 
+  // ini filter untuk nama dan no rekam medis
   const [filterText, setFilterText] = useState("");
-  const filteredItems = dataUser?.user_medis.filter(
-    (item) =>
-      item.nama &&
-      item.nama.toLowerCase().includes(filterText.toLowerCase()) &&
-      item.user_role === "pasien"
+  const filteredPasien = dataUser?.user_medis.filter(
+    (item) => item.user_role === "pasien"
   );
+  // console.log(filteredPasien)
+  const filteredItems = filteredPasien?.filter(
+    (item) =>
+      item.nama.toLowerCase().includes(filterText.toLowerCase()) || item.no_rekam_medis.toLowerCase().includes(filterText.toLowerCase())
+  );
+
 
   const subHeaderComponentMemo = useMemo(() => {
     return (
@@ -65,7 +69,7 @@ function Index() {
       wrap: true,
     },
     {
-      name: "Tambah Rekam Medis",
+      name: "Rekam Medis",
       maxWidth: "20%",
       allowOverflow: true,
       wrap: true,

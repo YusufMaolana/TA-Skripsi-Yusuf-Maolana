@@ -10,6 +10,7 @@ export const compareStr = (str, hash) => {
   return compare;
 };
 
+// keamanan akses page
 export const isRole = (hashRole) => {
   const roles = ["pasien", "dokter", "admin"];
   let user = "";
