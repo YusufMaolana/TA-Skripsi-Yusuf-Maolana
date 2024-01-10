@@ -4,6 +4,7 @@ import heroImage from "./doctors.png";
 import logo from "./logo.svg";
 import aboutImage from "./medic.png";
 import notFoundImage from "./not-found.png";
+import defaultImg from "./default-img.png";
 
 export {
   coverLogin,
@@ -12,4 +13,5 @@ export {
   logo,
   aboutImage,
   notFoundImage,
+  defaultImg,
 };

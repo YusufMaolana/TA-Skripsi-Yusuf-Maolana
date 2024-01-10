@@ -153,7 +153,9 @@ function LayoutBack({ children, user }) {
                     <Link to="/">Home</Link>
                   </li>
                   {breadcrumbMenu.map((menu) =>
-                    menu === path && menu !== "rekam-medis" ? (
+                    menu === path &&
+                    menu !== "rekam-medis" &&
+                    menu !== "rekam-medis-luar" ? (
                       <li className="breadcrumb-item">
                         <Link to={`/${path}`}>{menu}</Link>
                       </li>

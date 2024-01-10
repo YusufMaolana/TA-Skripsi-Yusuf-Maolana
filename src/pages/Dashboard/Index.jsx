@@ -3,15 +3,19 @@ import { FaFileMedical, FaUserInjured } from "react-icons/fa";
 import { AiFillBook } from "react-icons/ai";
 import { BsWhatsapp } from "react-icons/bs";
 import swal from "sweetalert";
+import LineChart from "./LineChart";
 import {
   useInsertAntrian,
   useSubscribeStatusAntrian,
   useUpdateAntrian,
   useSubscribeMaxAntrian,
   useSubscribeUser,
+  useGetTanggalAntrian,
+  // useSubscribeTanggalAntrian,
 } from "../../hooks";
-import { isRole } from "../../utils";
+import { isRole, countTanggalAntrian } from "../../utils";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function Index() {
   const user = isRole(localStorage.getItem("user_role"));
@@ -44,6 +48,16 @@ function Index() {
     };
   };
 
+  const { data: tanggal_antrian, error: err_tanggal_antrian } =
+    useGetTanggalAntrian();
+
+  if (err_tanggal_antrian) console.error(err_tanggal_antrian);
+
+  const [state, setState] = useState([]);
+  useEffect(() => {
+    setState(tanggal_antrian?.antrian_medis);
+  }, [tanggal_antrian]);
+
   if (user === "admin" || user === "dokter") {
     const { dataUser } = useSubscribeUser();
     const { maxAntrian } = useSubscribeMaxAntrian();
@@ -52,22 +66,30 @@ function Index() {
     const pasien = dataUser?.user_medis.filter(
       (item) => item.user_role === "pasien"
     );
-    return (
-      <CardDashboardWelcome user={user}>
-        <CardDashboard
-          style={"bg-dark-blue"}
-          title={"Jumlah Antrian Hari Ini"}
-          number={max_no_antrian || 0}
-          icon={<FaFileMedical style={{ fontSize: "5rem" }} />}
-        />
 
-        <CardDashboard
-          style={"bg-dark-blue"}
-          title={"Jumlah Pasien Terdaftar"}
-          number={pasien?.length || 0}
-          icon={<FaUserInjured style={{ fontSize: "5rem" }} />}
-        />
-      </CardDashboardWelcome>
+    const countAntrian = countTanggalAntrian(state ?? []);
+
+    return (
+      <>
+        <CardDashboardWelcome user={user}>
+          <CardDashboard
+            style={"bg-dark-blue"}
+            title={"Jumlah Antrian Hari Ini"}
+            number={max_no_antrian || 0}
+            icon={<FaFileMedical style={{ fontSize: "5rem" }} />}
+          />
+
+          <CardDashboard
+            style={"bg-dark-blue"}
+            title={"Jumlah Pasien Terdaftar"}
+            number={pasien?.length || 0}
+            icon={<FaUserInjured style={{ fontSize: "5rem" }} />}
+          />
+        </CardDashboardWelcome>
+        <div className="px-4 mt-4 mb-5 chart">
+          <LineChart arr={countAntrian} />
+        </div>
+      </>
     );
   } else if (user === "pasien") {
     const navigate = useNavigate();

@@ -14,6 +14,8 @@ import {
   useGetUserByPk,
   useSubscribeRekamMedis,
   useDeleteRekamMedis,
+  useSubscriDiagnosaLuar,
+  useDeleteDiagnosaLuar,
 } from "../../hooks";
 import { Loading } from "../../components";
 import { isRole } from "../../utils";
@@ -34,6 +36,16 @@ function Index() {
   if (err_rekam_medis) console.error(err_rekam_medis);
 
   const listRekamMedis = list_rekam_medis?.rekam_medis;
+  // console.log(listRekamMedis);
+
+  const {
+    data: list_diagnosa,
+    loading: loading_diagnosa,
+    error: err_diagnosa,
+  } = useSubscriDiagnosaLuar(id_user);
+  if (err_diagnosa) console.error(err_diagnosa);
+
+  const dataRekamMedisLuar = list_diagnosa?.diagnosa;
   // console.log(listRekamMedis);
 
   const { deleteRekamMedis } = useDeleteRekamMedis();
@@ -68,7 +80,39 @@ function Index() {
     });
   };
 
+  const { deleteDiagnosaLuar } = useDeleteDiagnosaLuar();
+  const handleHapusMedisLuar = (id) => {
+    swal({
+      title: "Apakah kamu yakin?",
+      text: "Data yang dihapus tidak bisa dipulihkan",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        deleteDiagnosaLuar({
+          variables: {
+            _eq: id,
+          },
+        })
+          .then(({ data }) => {
+            const affected_rows = data.delete_diagnosa.affected_rows;
+            if (affected_rows) {
+              swal("Data Berhasil Dihapus!", {
+                icon: "success",
+              });
+            }
+          })
+          .catch((err) => console.error(err));
+        // console.log(id);
+      } else {
+        swal("Data Tidak Dihapus!");
+      }
+    });
+  };
+
   let columnsRekamMedis = [];
+  let columnsRekamMedisLuar = [];
   if (user === "admin") {
     columnsRekamMedis = [
       {
@@ -112,6 +156,46 @@ function Index() {
             <BsFillTrashFill
               className="text-danger fs-4 pointer"
               onClick={() => handleHapus(row.id)}
+            />
+          </div>
+        ),
+      },
+    ];
+
+    columnsRekamMedisLuar = [
+      {
+        name: "Tanggal",
+        selector: (row) => row.tanggal,
+        sortable: true,
+      },
+
+      {
+        name: "Diagnosa",
+        selector: (row) => row.diagnosa,
+        allowOverflow: true,
+        wrap: true,
+      },
+      {
+        name: "Hasil Pemeriksaan",
+        selector: (row) => (
+          <Link to={row.img_link}>
+            <img
+              src={row.img_link}
+              alt="hasil pemeriksaan"
+              className="img-fluid img-thumbnail"
+            />
+          </Link>
+        ),
+        center: true,
+      },
+      {
+        name: "Hapus",
+        center: true,
+        cell: (row) => (
+          <div className="d-flex">
+            <BsFillTrashFill
+              className="text-danger fs-4 pointer"
+              onClick={() => handleHapusMedisLuar(row.id)}
             />
           </div>
         ),
@@ -166,6 +250,44 @@ function Index() {
         ),
       },
     ];
+
+    columnsRekamMedisLuar = [
+      {
+        name: "Tanggal",
+        selector: (row) => row.tanggal,
+        sortable: true,
+      },
+
+      {
+        name: "Diagnosa",
+        selector: (row) => row.diagnosa,
+        allowOverflow: true,
+        wrap: true,
+      },
+      {
+        name: "Hasil Pemeriksaan",
+        selector: (row) => (
+          <Link to={row.img_link}>
+            <img
+              src={row.img_link}
+              alt="hasil pemeriksaan"
+              className="img-fluid img-thumbnail"
+            />
+          </Link>
+        ),
+      },
+      {
+        name: "Edit",
+        center: true,
+        cell: (row) => (
+          <div className="d-flex gap-3">
+            <Link to={`/rekam-medis-luar/edit/${row.id}`}>
+              <FaEdit className="text-warning fs-4 pointer" />
+            </Link>
+          </div>
+        ),
+      },
+    ];
   } else if (user === "pasien") {
     columnsRekamMedis = [
       {
@@ -204,6 +326,33 @@ function Index() {
         center: true,
       },
     ];
+
+    columnsRekamMedisLuar = [
+      {
+        name: "Tanggal",
+        selector: (row) => row.tanggal,
+        sortable: true,
+      },
+
+      {
+        name: "Diagnosa",
+        selector: (row) => row.diagnosa,
+        allowOverflow: true,
+        wrap: true,
+      },
+      {
+        name: "Hasil Pemeriksaan",
+        selector: (row) => (
+          <Link to={row.img_link}>
+            <img
+              src={row.img_link}
+              alt="hasil pemeriksaan"
+              className="img-fluid img-thumbnail"
+            />
+          </Link>
+        ),
+      },
+    ];
   }
 
   return (
@@ -231,6 +380,7 @@ function Index() {
             </tr>
           </tbody>
         </table>
+        <h5 className="mt-4 fw-semibold">Hasil Pemeriksaan Dalam Klinik</h5>
       </div>
 
       {user === "dokter" ? (
@@ -259,6 +409,32 @@ function Index() {
             paginationComponentOptions={paginationComponentOptions}
           />
         )}
+      </div>
+
+      <div className="ps-3 pe-2">
+        <h5 className="mt-4 fw-semibold">
+          Riwayat Hasil Pemeriksaan Luar Klinik
+        </h5>
+        {user === "dokter" ? (
+          <div className="mb-4 d-flex justify-content-end pe-4">
+            <Link
+              className="bg-primary-green text-white p-2 font-primary fw-bold fs-5 rounded d-flex align-items-center gap-2"
+              to={`/rekam-medis-luar/tambah/${data?.nama}/${id_user}`}
+            >
+              <AiOutlinePlus className="fs-4" /> Tambah
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
+        <DataTable
+          striped={true}
+          columns={columnsRekamMedisLuar}
+          data={dataRekamMedisLuar}
+          customStyles={customStyles}
+          pagination
+          paginationComponentOptions={paginationComponentOptions}
+        />
       </div>
     </>
   );

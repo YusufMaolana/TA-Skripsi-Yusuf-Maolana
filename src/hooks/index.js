@@ -17,6 +17,13 @@ import useSubscribeRekamMedis from "./useSubscribeRekamMedis";
 import useUpdateRekamMedis from "./useUpdateRekamMedis";
 import useDeleteRekamMedis from "./useDeleteRekamMedis";
 import useDeleteUser from "./useDeleteUser";
+import useDeleteDiagnosaLuar from "./useDeleteDiagnosaLuar";
+import useInsertDiagnosaLuar from "./useInsertDiagnosaLuar";
+import useUpdateDiagnosaLuar from "./useUpdateDiagnosaLuar";
+import useGetDiagnosaLuarById from "./useGetDiagnosaLuarById";
+import useSubscriDiagnosaLuar from "./useSubscribeDiagnosaLuar";
+import useSubscribeTanggalAntrian from "./useSubscribeTanggalAntrian";
+import useGetTanggalAntrian from "./useGetTanggalAntrian";
 
 export {
   useInsertUser,
@@ -38,4 +45,11 @@ export {
   useUpdateRekamMedis,
   useDeleteRekamMedis,
   useDeleteUser,
+  useDeleteDiagnosaLuar,
+  useInsertDiagnosaLuar,
+  useUpdateDiagnosaLuar,
+  useGetDiagnosaLuarById,
+  useSubscriDiagnosaLuar,
+  useSubscribeTanggalAntrian,
+  useGetTanggalAntrian,
 };

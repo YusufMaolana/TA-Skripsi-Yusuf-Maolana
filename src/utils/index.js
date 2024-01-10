@@ -10,7 +10,6 @@ export const compareStr = (str, hash) => {
   return compare;
 };
 
-// keamanan akses page
 export const isRole = (hashRole) => {
   const roles = ["pasien", "dokter", "admin"];
   let user = "";
@@ -85,4 +84,27 @@ export const toRupiah = (number) => {
     currency: "IDR",
     minimumFractionDigits: 0,
   }).format(number);
+};
+
+export const countTanggalAntrian = (arr) => {
+  const uniqueElement = {};
+
+  for (const element of arr) {
+    if (uniqueElement[element.tanggal]) {
+      uniqueElement[element.tanggal] += 1;
+    } else {
+      uniqueElement[element.tanggal] = 1;
+    }
+  }
+
+  const newArr = [];
+  for (const el of Object.entries(uniqueElement)) {
+    let data = {
+      tanggal: el[0],
+      total: el[1],
+    };
+    newArr.push(data);
+  }
+
+  return newArr;
 };

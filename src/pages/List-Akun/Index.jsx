@@ -1,10 +1,9 @@
-import { LayoutBack } from "../../components";
 import DataTable from "react-data-table-component";
 import { AiOutlineUser } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import { FaEdit } from "react-icons/fa";
 import { customStyles, paginationComponentOptions } from "../../utils";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useRef } from "react";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -19,7 +18,8 @@ function Index() {
   const [filterText, setFilterText] = useState("");
   const filteredItems = dataUser?.user_medis?.filter(
     (item) =>
-      item.nama && item.nama.toLowerCase().includes(filterText.toLowerCase())
+      item.nama.toLowerCase().includes(filterText.toLowerCase()) ||
+      item.no_rekam_medis.toLowerCase().includes(filterText.toLowerCase())
   );
 
   const subHeaderComponentMemo = useMemo(() => {
@@ -28,7 +28,7 @@ function Index() {
         <InputGroup>
           <Form.Control
             type="text"
-            placeholder="Cari Nama"
+            placeholder="Cari Nama atau Nomor ID"
             onChange={(e) => setFilterText(e.target.value)}
           />
           <InputGroup.Text className="bg-warning">
@@ -71,31 +71,49 @@ function Index() {
     });
   };
 
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [itemsPerPage, setItemsPerPage] = useState(10);
+
+  // const handlePageChange = (page) => {
+  //   setCurrentPage(page);
+  // };
+
+  // const handlePerPageChange = (newPerPage) => {
+  //   setItemsPerPage(newPerPage);
+  // };
+
   const columnsListAkun = [
+    // {
+    //   name: "No",
+    //   cell: (row, index) => index + 1 + itemsPerPage * (currentPage - 1),
+    //   maxWidth: "5%",
+    // },
     {
       name: "Nama",
       selector: (row) => row.nama,
       sortable: true,
-      maxWidth: "18%",
+      maxWidth: "15%",
       allowOverflow: true,
       wrap: true,
     },
     {
       name: "Alamat",
       selector: (row) => row.alamat,
-      maxWidth: "37%",
+      maxWidth: "40%",
       allowOverflow: true,
       wrap: true,
     },
     {
-      name: "No. Rekam Medis",
+      name: "Nomor ID",
       selector: (row) => <span className="px-3">{row.no_rekam_medis}</span>,
       maxWidth: "15%",
+      center: true,
       allowOverflow: true,
       wrap: true,
     },
     {
       name: "Status Akun",
+      sortable: true,
       selector: (row) => (
         <span className="text-uppercase">{row.user_role}</span>
       ),
@@ -135,6 +153,10 @@ function Index() {
             subHeader
             subHeaderComponent={subHeaderComponentMemo}
             paginationComponentOptions={paginationComponentOptions}
+            // paginationPerPage={itemsPerPage}
+            // paginationRowsPerPageOptions={[10, 20, 30]}
+            // onChangePage={handlePageChange}
+            // onChangeRowsPerPage={handlePerPageChange}
           />
         </div>
       </>

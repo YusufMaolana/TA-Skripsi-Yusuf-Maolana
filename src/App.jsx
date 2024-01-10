@@ -12,6 +12,8 @@ import {
   TambahRekamMedis,
   EditRekamMedis,
   NotFound,
+  TambahRekamMedisLuar,
+  EditRekamMedisLuar,
 } from "./pages";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {
@@ -53,6 +55,14 @@ function App() {
           <Route
             path="/rekam-medis/edit/:nama/:id_rekam_medis/:id_user"
             element={<EditRekamMedis />}
+          />
+          <Route
+            path="/rekam-medis-luar/tambah/:nama/:id_user"
+            element={<TambahRekamMedisLuar />}
+          />
+          <Route
+            path="/rekam-medis-luar/edit/:id"
+            element={<EditRekamMedisLuar />}
           />
           <Route path="/antrian-medis" element={<AntrianMedis />} />
         </Route>

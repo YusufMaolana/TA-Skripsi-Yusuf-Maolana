@@ -68,10 +68,33 @@ const SUBSCRIBE_REKAM_MEDIS = gql`
   }
 `;
 
+const SUBSCRIBE_DIAGNOSA_LUAR = gql`
+  subscription MySubscription($_eq: uuid = "") {
+    diagnosa(where: { id_user: { _eq: $_eq } }) {
+      diagnosa
+      id
+      id_user
+      img_link
+      nama
+      tanggal
+    }
+  }
+`;
+
+const SUBSCRIBE_TANGGAL_ANTRIAN = gql`
+  subscription MySubscription {
+    rekam_medis {
+      tanggal
+    }
+  }
+`;
+
 export {
   SUBSCRIBE_ANTRIAN,
   SUBSCRIBE_NO_ANTRIAN_MAX_WHERE_DATE,
   SUBSCRIBE_USER,
   SUBSCRIBE_STATUS_ANTRIAN_USER,
   SUBSCRIBE_REKAM_MEDIS,
+  SUBSCRIBE_DIAGNOSA_LUAR,
+  SUBSCRIBE_TANGGAL_ANTRIAN,
 };

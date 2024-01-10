@@ -106,6 +106,30 @@ const DELETE_USER_MEDIS = gql`
   }
 `;
 
+const INSERT_DIAGNOSA_LUAR = gql`
+  mutation MyMutation($objects: [diagnosa_insert_input!] = {}) {
+    insert_diagnosa(objects: $objects) {
+      affected_rows
+    }
+  }
+`;
+
+const UPDATE_DIAGNOSA_LUAR = gql`
+  mutation MyMutation($_eq: Int = "", $_set: diagnosa_set_input = {}) {
+    update_diagnosa(where: { id: { _eq: $_eq } }, _set: $_set) {
+      affected_rows
+    }
+  }
+`;
+
+const DELETE_DIAGNOSA_LUAR = gql`
+  mutation MyMutation($_eq: Int = "") {
+    delete_diagnosa(where: { id: { _eq: $_eq } }) {
+      affected_rows
+    }
+  }
+`;
+
 export {
   INSERT_USER,
   INSERT_ANTRIAN_MEDIS,
@@ -118,4 +142,7 @@ export {
   UPDATE_REKAM_MEDIS,
   DELETE_REKAM_MEDIS,
   DELETE_USER_MEDIS,
+  INSERT_DIAGNOSA_LUAR,
+  UPDATE_DIAGNOSA_LUAR,
+  DELETE_DIAGNOSA_LUAR,
 };

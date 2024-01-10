@@ -11,6 +11,8 @@ import EditAkun from "./List-Akun/Edit";
 import TambahRekamMedis from "./Rekam-Medis/Add";
 import EditRekamMedis from "./Rekam-Medis/Edit";
 import NotFound from "./Not-Found/Index";
+import TambahRekamMedisLuar from "./Rekam-Medis-Luar/Add";
+import EditRekamMedisLuar from "./Rekam-Medis-Luar/Edit";
 
 export {
   Home,
@@ -26,4 +28,6 @@ export {
   TambahRekamMedis,
   EditRekamMedis,
   NotFound,
+  TambahRekamMedisLuar,
+  EditRekamMedisLuar,
 };

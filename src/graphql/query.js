@@ -43,4 +43,31 @@ const GET_REKAM_MEDIS_BY_ID = gql`
   }
 `;
 
-export { GET_USER_BY_NO_REKAM, GET_USER_BY_PK, GET_REKAM_MEDIS_BY_ID };
+const GET_DIAGNOSA_LUAR_BY_ID = gql`
+  query MyQuery($_eq: Int = "") {
+    diagnosa(where: { id: { _eq: $_eq } }) {
+      diagnosa
+      id
+      id_user
+      img_link
+      nama
+      tanggal
+    }
+  }
+`;
+
+const GET_TANGGAL_ANTRIAN = gql`
+  query MyQuery @cached {
+    antrian_medis {
+      tanggal
+    }
+  }
+`;
+
+export {
+  GET_USER_BY_NO_REKAM,
+  GET_USER_BY_PK,
+  GET_REKAM_MEDIS_BY_ID,
+  GET_DIAGNOSA_LUAR_BY_ID,
+  GET_TANGGAL_ANTRIAN,
+};

@@ -20,6 +20,14 @@ html {
   margin: 0;
 }
 
+.chart {
+  width: 80%;
+}
+
+.not-allowed {
+  cursor: not-allowed;
+}
+
 a {
   text-decoration: none;
 }
@@ -229,6 +237,10 @@ button.nav-link:hover {
     font-size: 85%;
   }
 
+  .chart {
+    width: 100%;
+  }
+
   .navbar-nav {
     display: flex;
     flex-direction: column;
@@ -311,6 +323,11 @@ button.nav-link:hover {
   html {
     font-size: 80%;
   }
+
+  .chart {
+    width: 100%;
+  }
+
   .flex-content {
     flex-direction: column;
   }

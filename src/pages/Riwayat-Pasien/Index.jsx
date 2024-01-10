@@ -16,17 +16,15 @@ function Index() {
   if (errorUser) console.error(errorUser);
   // console.log(dataUser);
 
-  // ini filter untuk nama dan no rekam medis
   const [filterText, setFilterText] = useState("");
   const filteredPasien = dataUser?.user_medis.filter(
-    (item) => item.user_role === "pasien"
+    (item) => item.user_role == "pasien"
   );
-  // console.log(filteredPasien)
   const filteredItems = filteredPasien?.filter(
     (item) =>
-      item.nama.toLowerCase().includes(filterText.toLowerCase()) || item.no_rekam_medis.toLowerCase().includes(filterText.toLowerCase())
+      item.nama.toLowerCase().includes(filterText.toLowerCase()) ||
+      item.no_rekam_medis.toLowerCase().includes(filterText.toLowerCase())
   );
-
 
   const subHeaderComponentMemo = useMemo(() => {
     return (
@@ -34,7 +32,7 @@ function Index() {
         <InputGroup>
           <Form.Control
             type="text"
-            placeholder="Cari Nama / No Rekam Medis"
+            placeholder="Cari Nama atau Nomor ID"
             onChange={(e) => setFilterText(e.target.value)}
           />
           <InputGroup.Text className="bg-warning">
@@ -49,7 +47,6 @@ function Index() {
     {
       name: "Nama",
       selector: (row) => row.nama,
-      sortable: true,
       maxWidth: "20%",
       allowOverflow: true,
       wrap: true,
@@ -62,9 +59,10 @@ function Index() {
       wrap: true,
     },
     {
-      name: "No. Rekam Medis",
+      name: "Nomor ID",
       selector: (row) => <span className="px-3">{row.no_rekam_medis}</span>,
       maxWidth: "18%",
+      center: true,
       allowOverflow: true,
       wrap: true,
     },
